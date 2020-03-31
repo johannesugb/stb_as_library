@@ -344,12 +344,11 @@ typedef unsigned short stbi_us;
 extern "C" {
 #endif
 
-#ifndef STBIDEF
-#ifdef STB_IMAGE_STATIC
-#define STBIDEF static
+
+#ifdef STB_IMAGE_IMPLEMENTATION
+#define STBIDEF __declspec(dllimport)
 #else
-#define STBIDEF extern
-#endif
+#define STBIDEF __declspec(dllexport)
 #endif
 
 //////////////////////////////////////////////////////////////////////////////

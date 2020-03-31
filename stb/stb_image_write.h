@@ -152,17 +152,14 @@ LICENSE
 
 #include <stdlib.h>
 
-// if STB_IMAGE_WRITE_STATIC causes problems, try defining STBIWDEF to 'inline' or 'static inline'
-#ifndef STBIWDEF
-#ifdef STB_IMAGE_WRITE_STATIC
-#define STBIWDEF  static
+#ifdef STB_IMAGE_WRITE_IMPLEMENTATION
+#define STBIWDEF __declspec(dllimport)
 #else
+#define STBIWDEF __declspec(dllexport)
+#endif
+
 #ifdef __cplusplus
-#define STBIWDEF  extern "C"
-#else
-#define STBIWDEF  extern
-#endif
-#endif
+extern "C" {
 #endif
 
 #ifndef STB_IMAGE_WRITE_STATIC  // C++ forbids static forward declarations
@@ -193,6 +190,10 @@ STBIWDEF int stbi_write_jpg_to_func(stbi_write_func *func, void *context, int x,
 
 STBIWDEF void stbi_flip_vertically_on_write(int flip_boolean);
 
+#ifdef __cplusplus
+}
+#endif
+	
 #endif//INCLUDE_STB_IMAGE_WRITE_H
 
 #ifdef STB_IMAGE_WRITE_IMPLEMENTATION

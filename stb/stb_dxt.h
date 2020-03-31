@@ -38,10 +38,10 @@
 extern "C" {
 #endif
 
-#ifdef STB_DXT_STATIC
-#define STBDDEF static
+#ifdef STB_DXT_IMPLEMENTATION
+#define STBDDEF __declspec(dllimport)
 #else
-#define STBDDEF extern
+#define STBDDEF __declspec(dllexport)
 #endif
 
 // compression mode (bitflags)

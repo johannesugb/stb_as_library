@@ -195,16 +195,14 @@ typedef uint16_t stbir_uint16;
 typedef uint32_t stbir_uint32;
 #endif
 
-#ifndef STBIRDEF
-#ifdef STB_IMAGE_RESIZE_STATIC
-#define STBIRDEF static
+#ifdef STB_IMAGE_RESIZE_IMPLEMENTATION
+#define STBIRDEF __declspec(dllimport)
 #else
+#define STBIRDEF __declspec(dllexport)
+#endif
+
 #ifdef __cplusplus
-#define STBIRDEF extern "C"
-#else
-#define STBIRDEF extern
-#endif
-#endif
+extern "C" {
 #endif
 
 //////////////////////////////////////////////////////////////////////////////
@@ -375,6 +373,11 @@ STBIRDEF int stbir_resize_region(  const void *input_pixels , int input_w , int 
                                    float s0, float t0, float s1, float t1);
 // (s0, t0) & (s1, t1) are the top-left and bottom right corner (uv addressing style: [0, 1]x[0, 1]) of a region of the input image to use.
 
+#ifdef __cplusplus
+}
+#endif
+
+	
 //
 //
 ////   end header file   /////////////////////////////////////////////////////
